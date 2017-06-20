@@ -4,7 +4,7 @@ import spray.json.{JsNumber, JsObject, JsValue}
 
 trait Quantile extends Aggregate[Quantile]
 
-case class Quantile1(value: Long) extends Quantile{
+case class Quantile1(value: Double) extends Quantile{
   override def plus(another: Quantile): Quantile = another match {
     case other:Quantile1 => QuantileN(TDigest.combine(this.toTDigest, other.toTDigest))
     case QuantileN(otherTDigest) => QuantileN(TDigest.combine(this.toTDigest,otherTDigest))
