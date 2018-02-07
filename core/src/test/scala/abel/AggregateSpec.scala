@@ -53,27 +53,27 @@ class AggregateSpec extends FlatSpec {
 
     val result = List.range[Int](1,100).foldLeft[Quantile](Quantile1(0))((q,i) => q plus Quantile1(i)).show.asJsObject.fields
     result.get("50") match {
-      case Some(JsNumber(x)) => x.toFloat should be (50.0f +- 1)
+      case Some(JsNumber(x)) => x.toDouble should be (50.0d +- 1)
       case _ => fail("Invalid JS Number")
     }
     result.get("75") match {
-      case Some(JsNumber(x)) => x.toFloat should be (75.0f +- 1)
+      case Some(JsNumber(x)) => x.toDouble should be (75.0d +- 1)
       case _ => fail("Invalid JS Number")
     }
     result.get("90") match {
-      case Some(JsNumber(x)) => x.toFloat should be (90.0f +- 1)
+      case Some(JsNumber(x)) => x.toDouble should be (90.0d +- 1)
       case _ => fail("Invalid JS Number")
     }
     result.get("95") match {
-      case Some(JsNumber(x)) => x.toFloat should be (95.0f +- 1)
+      case Some(JsNumber(x)) => x.toDouble should be (95.0d +- 1)
       case _ => fail("Invalid JS Number")
     }
     result.get("99") match {
-      case Some(JsNumber(x)) => x.toFloat should be (99.0f +- 1)
+      case Some(JsNumber(x)) => x.toDouble should be (99.0d +- 1)
       case _ => fail("Invalid JS Number")
     }
     result.get("99.9") match {
-      case Some(JsNumber(x)) => x.toFloat should be (99.9f +- 1)
+      case Some(JsNumber(x)) => x.toDouble should be (99.9d +- 1)
       case _ => fail("Invalid JS Number")
     }
   }

@@ -70,8 +70,8 @@ lazy val publishSettings = Seq(
         </license>
       </licenses>
       <scm>
-        <url>git@github.com:ind9/abel.git</url>
-        <connection>scm:git:git@github.com:ind9/abel.git</connection>
+        <url>git@github.com:indix/abel.git</url>
+        <connection>scm:git:git@github.com:indix/abel.git</connection>
       </scm>
       <developers>
         <developer>
