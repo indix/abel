@@ -3,7 +3,7 @@ package abel
 import abel.aggregates._
 import org.scalatest.FlatSpec
 import org.scalatest.Matchers._
-import spray.json.{JsArray, JsNumber}
+import spray.json.{JsArray, JsNumber, JsObject}
 
 import scala.collection.immutable.HashMap
 
@@ -41,5 +41,40 @@ class AggregateSpec extends FlatSpec {
 
     pair should be(Pair(Count(11), Average(110, 11)))
     pair.show should be(JsArray(JsNumber(11), JsNumber(10.0)))
+  }
+
+  "Quantile" should "return the approximate percentiles" in {
+    Quantile1(1000).show should be(JsObject("50" -> JsNumber(1000),
+      "75" -> JsNumber(1000),
+      "90" -> JsNumber(1000),
+      "95" -> JsNumber(1000),
+      "99" -> JsNumber(1000),
+      "99.9" -> JsNumber(1000)))
+
+    val result = List.range[Int](1,100).foldLeft[Quantile](Quantile1(0))((q,i) => q plus Quantile1(i)).show.asJsObject.fields
+    result.get("50") match {
+      case Some(JsNumber(x)) => x.toDouble should be (50.0d +- 1)
+      case _ => fail("Invalid JS Number")
+    }
+    result.get("75") match {
+      case Some(JsNumber(x)) => x.toDouble should be (75.0d +- 1)
+      case _ => fail("Invalid JS Number")
+    }
+    result.get("90") match {
+      case Some(JsNumber(x)) => x.toDouble should be (90.0d +- 1)
+      case _ => fail("Invalid JS Number")
+    }
+    result.get("95") match {
+      case Some(JsNumber(x)) => x.toDouble should be (95.0d +- 1)
+      case _ => fail("Invalid JS Number")
+    }
+    result.get("99") match {
+      case Some(JsNumber(x)) => x.toDouble should be (99.0d +- 1)
+      case _ => fail("Invalid JS Number")
+    }
+    result.get("99.9") match {
+      case Some(JsNumber(x)) => x.toDouble should be (99.9d +- 1)
+      case _ => fail("Invalid JS Number")
+    }
   }
 }
