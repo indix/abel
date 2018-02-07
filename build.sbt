@@ -61,7 +61,7 @@ lazy val publishSettings = Seq(
       Some("releases"  at nexus + "service/local/staging/deploy/maven2")
   },
   pomExtra := {
-    <url>http://github.com/ind9/abel</url>
+    <url>http://github.com/indix/abel</url>
       <licenses>
         <license>
           <name>Apache License, Version 2.0</name>
